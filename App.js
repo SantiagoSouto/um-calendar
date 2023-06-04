@@ -1,14 +1,10 @@
 import { useFonts } from 'expo-font'
-import { StatusBar } from 'expo-status-bar'
-import { TamaguiProvider, YStack, Text, H1 } from 'tamagui'
+import { View } from 'react-native';
 
-import config from './tamagui.config'
-import { User } from './src/components/User'
-import { Button } from './src/components/Button'
-import { Input } from './src/components/Input'
-import { ImageBackground } from 'react-native';
-import LoginScreen from './src/Screens/Login'
-import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen from './src/Screens/LoginScreen';
+import SignUpScreen from './src/Screens/SignUpScreen';
 
 export default function App() {
 
@@ -20,16 +16,17 @@ export default function App() {
   if (!loaded) {
     return null
   }
-
-  const Stack = createStackNavigator();
-  const Login = () => <View />;
+  
+  const Stack = createNativeStackNavigator();
 
   return (
+    <View style={{ flex: 1 }}>
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={LoginScreen} />
-        {/* Other screens */}
+        <Stack.Screen name="Log in" component={LoginScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="Sign Up" component={SignUpScreen} options={{ headerShown: true }}/>
       </Stack.Navigator>
     </NavigationContainer>
+    </View>
   )
 }

@@ -12,11 +12,11 @@ export const Input = styled(TInput, {
         //   },
         background: {
             normal: {
-                bg: "$blue10"
+                bg: "$blue8"
             },
             outline: {
                 borderWidth: "$1",
-                borderColor: "$blue10"
+                borderColor: "$blue8"
             }
         }
     } as const,

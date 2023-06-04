@@ -1,24 +1,26 @@
 import { Button as TButton, styled } from "tamagui";
-import { Search } from "@tamagui/lucide-icons";
+import { ArrowLeft } from  '@tamagui/lucide-icons'
 
 export const Button = styled(TButton, {
-    w: "$5",
+    w: "$15",
     h: "$5",
-    icon: Search,
 
     variants: {
         background: {
             normal: {
-                bg: "$blue10"
+                bg: "$blue8"
             },
             outline: {
                 borderWidth: "$1",
-                borderColor: "$blue10"
+                borderColor: "$blue6"
+            },
+            back: {
+                icon: ArrowLeft,
             }
         }
     } as const,
 
     defaultVariants: {
-        background: "outline"
+        background: "normal"
     }
 })
