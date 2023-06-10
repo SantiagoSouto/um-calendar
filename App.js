@@ -10,6 +10,8 @@ import CreateSubjectsScreen from './src/Screens/Admin/CreateSubjectsScreen';
 import SubjectsAdminScreen from './src/Screens/Admin/SubjectsAdmin';
 import EditEventScreen from './src/Screens/Admin/EditEventScreen';
 import HomeUserScreen from './src/Screens/User/HomeUserScreen';
+import CalendarScreen from './src/Screens/User/CalendarScreen';
+import { AuthProvider } from './src/Session/AuthContext';
 
 export default function App() {
 
@@ -25,20 +27,23 @@ export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
+    <AuthProvider>
     <View style={{ flex: 1 }}>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Log in" component={LoginScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name="Sign Up" component={SignUpScreen} options={{ headerShown: true }}/>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Log in" component={LoginScreen} options={{ headerShown: false, title: 'Iniciar sesión' }}/>
+          <Stack.Screen name="Sign Up" component={SignUpScreen} options={{ headerShown: true, title: '' }}/>
 
-        <Stack.Screen name="Home admin" component={HomeAdminScreen} options={{ headerShown: true }}/>
-        <Stack.Screen name="Create subjects" component={CreateSubjectsScreen} options={{ headerShown: true }}/>
-        <Stack.Screen name="See subjects" component={SubjectsAdminScreen} options={{ headerShown: true }}/>
-        <Stack.Screen name="Edit event" component={EditEventScreen} options={{ headerShown: true }}/>
+          <Stack.Screen name="Home admin" component={HomeAdminScreen} options={{ headerShown: true, title: '' }}/>
+          <Stack.Screen name="Create subjects" component={CreateSubjectsScreen} options={{ headerShown: true, title: '' }}/>
+          <Stack.Screen name="See subjects" component={SubjectsAdminScreen} options={{ headerShown: true, title: '' }}/>
+          <Stack.Screen name="Edit event" component={EditEventScreen} options={{ headerShown: true, title: '' }}/>
 
-        <Stack.Screen name="Home user" component={HomeUserScreen} options={{ headerShown: true }}/>
-      </Stack.Navigator>
-    </NavigationContainer>
-    </View>
+          <Stack.Screen name="Home user" component={HomeUserScreen} options={{ headerShown: true, title: '' }}/>
+          <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: true, title: '' }}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+      </View>
+    </AuthProvider>
   )
 }
