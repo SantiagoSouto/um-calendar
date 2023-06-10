@@ -33,6 +33,8 @@ export default function LoginScreen() {
         setPassword('');
 
         passwordRef.current.focus();
+
+        navigation.navigate('Home admin');
     };
 
     const navigation = useNavigation();
@@ -75,7 +77,7 @@ export default function LoginScreen() {
 
                         <YStack alignItems="center" mt="$20">
                             <Form.Trigger asChild>
-                                <Button disabled={isFormEmpty}>
+                                <Button>
                                     <Button.Text style={styles.translucentText}>Iniciar sesión</Button.Text>
                                 </Button>
                             </Form.Trigger>
