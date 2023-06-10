@@ -19,6 +19,15 @@ export default function SignUpScreen() {
 
     const [emailError, setEmailError] = useState('');
 
+    const validateEmail = () => {
+        const emailRegex = /^[\w-]+(\.[\w-]+)*@((correo\.um\.edu\.uy)|(um\.edu\.uy))$/;
+        if (!emailRegex.test(email)) {
+          setEmailError('El formato del email no es correcto');
+        } else {
+          setEmailError('');
+        }
+      };
+
     const emailRef = useRef(null);
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
@@ -27,7 +36,12 @@ export default function SignUpScreen() {
     const handleSubmit = () => {
 
         if (!email.trim() || !username.trim() || !password.trim() || !passwordConfirmed.trim()) {
-            Alert.alert('Error', 'Please fill in all fields.');
+            Alert.alert('Error', 'Por favor, complete todos los campos');
+            return;
+        }
+
+        if (emailError != '') {
+            Alert.alert('Error', 'El formato del email no es correcto');
             return;
         }
 
@@ -80,7 +94,7 @@ export default function SignUpScreen() {
                     <Form f={3} mt="$-12" padding="$3" space="$4" onSubmit={handleSubmit}>
 
                         <Input value={email} onChangeText={setEmail} placeholder="Ingrese correo de la UM" 
-                                onSubmitEditing={() => usernameRef.current.focus()} ref={emailRef}/>
+                                onSubmitEditing={() => usernameRef.current.focus()} ref={emailRef}  onBlur={validateEmail}/>
                         <Input value={username} onChangeText={setUsername} placeholder="Nombre completo" 
                             onSubmitEditing={() => passwordRef.current.focus()} ref={usernameRef}/>
                         <Input value={password} onChangeText={setPassword} secureTextEntry placeholder="Constraseña" 

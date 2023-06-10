@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './src/Screens/LoginScreen';
 import SignUpScreen from './src/Screens/SignUpScreen';
+import HomeAdminScreen from './src/Screens/Admin/HomeAdminScreen';
+import CreateSubjectsScreen from './src/Screens/Admin/CreateSubjectsScreen';
 
 export default function App() {
 
@@ -25,6 +27,9 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Log in" component={LoginScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="Sign Up" component={SignUpScreen} options={{ headerShown: true }}/>
+
+        <Stack.Screen name="Home admin" component={HomeAdminScreen} options={{ headerShown: true }}/>
+        <Stack.Screen name="Create subjects" component={CreateSubjectsScreen} options={{ headerShown: true }}/>
       </Stack.Navigator>
     </NavigationContainer>
     </View>
