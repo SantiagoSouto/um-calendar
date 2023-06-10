@@ -7,7 +7,7 @@ import { Button } from '../../components/Button'
 import { ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function HomeAdminScreen() {
+export default function HomeUserScreen() {
     const backgroundImage = require('../../../assets/fachada_grande.jpeg');
 
     const navigation = useNavigation();
@@ -53,15 +53,19 @@ export default function HomeAdminScreen() {
                     <YStack f={4} alignItems="center" space="$4" justifyContent="center">
 
                         <Button onPress={handleCreateSubjects}>
-                            <Button.Text style={styles.translucentText}>Crear materias</Button.Text>
+                            <Button.Text style={styles.translucentText}>Mis materias</Button.Text>
                         </Button>
 
                         <Button onPress={handleSeeSubjects}>
-                            <Button.Text style={styles.translucentText}>Ver materias</Button.Text>
+                            <Button.Text style={styles.translucentText}>Calendario</Button.Text>
                         </Button>
 
                         <Button onPress={handleEditEvent}>
-                            <Button.Text style={styles.translucentText}>Editar eventos</Button.Text>
+                            <Button.Text style={styles.translucentText}>Inscribirme a materias</Button.Text>
+                        </Button>
+
+                        <Button onPress={handleEditEvent}>
+                            <Button.Text style={styles.translucentText}>Agregar evento</Button.Text>
                         </Button>
 
                     </YStack>

@@ -9,40 +9,40 @@ import { Button } from '../../components/Button'
 import { ImageBackground } from 'react-native';
 import { Form } from 'tamagui'
 
-export default function CreateSubjectsScreen() {
+export default function EditEventScreen() {
     const backgroundImage = require('../../../assets/fachada_grande.jpeg');
 
     const [subjectName, setsubjectName] = useState('');
+    const [eventName, seteventName] = useState('');
     const [description, setdescription] = useState('');
-    const [career, setcareer] = useState('');
-    const [timetable, settimetable] = useState('');
+    const [date, setdate] = useState('');
 
     const subjectNameRef = useRef(null);
+    const eventNameRef = useRef(null);
     const descriptionRef = useRef(null);
-    const careerRef = useRef(null);
-    const timetableRef = useRef(null);
+    const dateRef = useRef(null);
 
     const handleSubmit = () => {
 
-        if (!subjectName.trim() || !description.trim() || !career.trim() || !timetable.trim()) {
+        if (!subjectName.trim() || !eventName.trim() || !description.trim() || !date.trim()) {
             Alert.alert('Error', 'Por favor, complete todos los campos');
             return;
         }
 
         console.log('Form submitted');
         console.log('subjectName:', subjectName);
+        console.log('eventName:', eventName);
         console.log('description:', description);
-        console.log('career:', career);
-        console.log('timetable:', timetable);
+        console.log('date:', date);
 
         setsubjectName('');
+        seteventName('');
         setdescription('');
-        setcareer('');
-        settimetable('');
+        setdate('');
 
+        eventNameRef.current.focus();
         descriptionRef.current.focus();
-        careerRef.current.focus();
-        timetableRef.current.focus();
+        dateRef.current.focus();
     };
 
     const navigation = useNavigation();
@@ -61,7 +61,7 @@ export default function CreateSubjectsScreen() {
         });
       }, [navigation]);
 
-    const isFormEmpty = !subjectName.trim() || !description.trim() || !career.trim() || !timetable.trim();
+    const isFormEmpty = !subjectName.trim() || !eventName.trim() || !description.trim() || !date.trim();
 
     return (
         <View style={styles.container}>
@@ -72,28 +72,27 @@ export default function CreateSubjectsScreen() {
                 >
                     <YStack f={1} paddingTop="$15" alignItems="center" >
                         <H1 color="$blue1" alignItems='center'>
-                            Crear materia
+                            Editar evento
                         </H1>
                     </YStack>
                     <Form f={3} mt="$-12" padding="$3" space="$4" onSubmit={handleSubmit}>
 
-                        <Input value={subjectName} onChangeText={setsubjectName} placeholder="Nombre de la materia" 
-                                onSubmitEditing={() => descriptionRef.current.focus()} ref={subjectNameRef}/>
-                        <Input value={description} onChangeText={setdescription} placeholder="Descripcion" 
-                            onSubmitEditing={() => careerRef.current.focus()} ref={descriptionRef}/>
-                        <Input value={career} onChangeText={setcareer} secureTextEntry placeholder="Carrera" 
-                            onSubmitEditing={() => timetableRef.current.focus()} ref={careerRef}/>
-                        <Input value={timetable} onChangeText={settimetable} secureTextEntry 
-                            placeholder="Horario de clase" ref={timetableRef}/>
+                        <Input value={subjectName} onChangeText={setsubjectName} placeholder="Ingrese materia" 
+                                onSubmitEditing={() => eventNameRef.current.focus()} ref={subjectNameRef}/>
+                        <Input value={eventName} onChangeText={seteventName} placeholder="Ingrese nombre de evento" 
+                            onSubmitEditing={() => descriptionRef.current.focus()} ref={eventNameRef}/>
+                        <Input value={description} onChangeText={setdescription} secureTextEntry placeholder="Ingrese descripción" 
+                            onSubmitEditing={() => dateRef.current.focus()} ref={descriptionRef}/>
+                        <Input value={date} onChangeText={setdate} secureTextEntry 
+                            placeholder="Ingrese fecha" ref={dateRef}/>
 
                         <YStack alignItems="center" mt="$20">
                             <Form.Trigger asChild>
                                 <Button disabled={isFormEmpty}>
-                                    <Button.Text style={styles.translucentText}>Crear materia</Button.Text>
+                                    <Button.Text style={styles.translucentText}>Editar evento</Button.Text>
                                 </Button>
                             </Form.Trigger>
                         </YStack>
-
                     </Form>
                 </ImageBackground>
             </TamaguiProvider>

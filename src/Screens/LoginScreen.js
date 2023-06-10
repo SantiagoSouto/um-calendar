@@ -34,7 +34,7 @@ export default function LoginScreen() {
 
         passwordRef.current.focus();
 
-        navigation.navigate('Home admin');
+        navigation.navigate('Home admin'); // por ahora esta asi hasta que pueda hacer login
     };
 
     const navigation = useNavigation();
