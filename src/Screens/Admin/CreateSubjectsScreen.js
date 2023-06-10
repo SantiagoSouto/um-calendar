@@ -4,8 +4,8 @@ import { TamaguiProvider, YStack, H1, useSafeRef, XStack } from 'tamagui'
 import { useNavigation } from '@react-navigation/native';
 
 import config from '../../../tamagui.config';
-import { Input } from '../../components/Input'
-import { Button } from '../../components/Button'
+import { Input } from '../../Components/Input'
+import { Button } from '../../Components/Button'
 import { ImageBackground } from 'react-native';
 import { Form } from 'tamagui'
 

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { TamaguiProvider, YStack, H4, H5, useSafeRef, XStack } from 'tamagui'
 
 import config from '../../../tamagui.config';
-import { Button } from '../../components/Button'
+import { Button } from '../../Components/Button'
 import { ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
