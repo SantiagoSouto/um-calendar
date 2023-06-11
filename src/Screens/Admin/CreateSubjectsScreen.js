@@ -9,7 +9,7 @@ import { ImageBackground } from 'react-native';
 import { Form } from 'tamagui'
 
 export default function CreateSubjectsScreen() {
-    const backgroundImage = require('../../../assets/fachada_grande.jpeg');
+    const backgroundImage = require('../../../assets/fachada.jpg');
 
     const [subjectName, setsubjectName] = useState('');
     const [description, setdescription] = useState('');

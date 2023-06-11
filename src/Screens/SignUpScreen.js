@@ -14,7 +14,7 @@ import { API_URL_BASE } from '../../apiConfig';
 import { ActivityIndicator } from 'react-native';
 
 export default function SignUpScreen() {
-    const backgroundImage = require('../../assets/fachada_grande.jpeg');
+    const backgroundImage = require('../../assets/fachada.jpg');
 
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');

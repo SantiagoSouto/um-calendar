@@ -10,7 +10,7 @@ import { SelectDemoItem } from '../../Components/Drop';
 import { ImageBackground } from 'react-native';
 
 export default function SubjectsAdminScreen() {
-    const backgroundImage = require('../../../assets/fachada_grande.jpeg');
+    const backgroundImage = require('../../../assets/fachada.jpg');
 
     const navigation = useNavigation();
 

@@ -10,7 +10,7 @@ import { ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function HomeUserScreen() {
-    const backgroundImage = require('../../../assets/fachada_grande.jpeg');
+    const backgroundImage = require('../../../assets/fachada.jpg');
 
     const { user } = useContext(AuthContext);
 
