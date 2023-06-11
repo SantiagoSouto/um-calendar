@@ -28,20 +28,6 @@ export default function HomeUserScreen() {
         navigation.navigate('Edit event');
     };
 
-    const handleGoBack = () => {
-        navigation.goBack();
-    };
-
-    React.useLayoutEffect(() => {
-        navigation.setOptions({
-            headerLeft: () => (
-                <TouchableOpacity onPress={handleGoBack}>
-                    <Text style={{ marginLeft: 5 }}>Go Back</Text>
-                </TouchableOpacity>
-            ),
-        });
-    }, [navigation]);
-
     return (
         <View style={{ flex: 1 }}>
             <TamaguiProvider config={config}>

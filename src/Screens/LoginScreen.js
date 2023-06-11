@@ -46,7 +46,6 @@ export default function LoginScreen() {
                 body: JSON.stringify(data)
             });
 
-            console.log(JSON.stringify(response));
             const statusCode = response.status;
 
             if (statusCode === 200) {

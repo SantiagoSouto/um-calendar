@@ -21,16 +21,6 @@ export default function SubjectsAdminScreen() {
         navigation.navigate('Home admin');
     };
 
-    React.useLayoutEffect(() => {
-        navigation.setOptions({
-            headerLeft: () => (
-                <TouchableOpacity onPress={handleGoBack}>
-                    <Text style={{ marginLeft: 5 }}>Go Back</Text>
-                </TouchableOpacity>
-            ),
-        });
-    }, [navigation]);
-
     return (
         <View style={{ flex: 1 }}>
             <TamaguiProvider config={config}>

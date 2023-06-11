@@ -1,78 +1,62 @@
-import React, {Component} from 'react';
-import {Alert, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {Agenda, DateData, AgendaEntry, AgendaSchedule} from 'react-native-calendars';
+import React, { Component } from 'react';
+import { Alert, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Agenda } from 'react-native-calendars';
 import testIDs from '../testIDs';
+import { startOfDay } from 'date-fns';
 
 export default class CalendarScreen extends Component {
   state = {
-    items: undefined
+    items: {}
   };
 
-  // reservationsKeyExtractor = (item, index) => {
-  //   return `${item?.reservation?.day}${index}`;
-  // };
-
-  render() {
-    return (
-      <Agenda
-        testID={testIDs.agenda.CONTAINER}
-        items={this.state.items}
-        loadItemsForMonth={this.loadItems}
-        selected={'2017-05-16'}
-        renderItem={this.renderItem}
-        renderEmptyDate={this.renderEmptyDate}
-        rowHasChanged={this.rowHasChanged}
-        showClosingKnob={true}
-        // markingType={'period'}
-        // markedDates={{
-        //    '2017-05-08': {textColor: '#43515c'},
-        //    '2017-05-09': {textColor: '#43515c'},
-        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-        //    '2017-05-21': {startingDay: true, color: 'blue'},
-        //    '2017-05-22': {endingDay: true, color: 'gray'},
-        //    '2017-05-24': {startingDay: true, color: 'gray'},
-        //    '2017-05-25': {color: 'gray'},
-        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-        // monthFormat={'yyyy'}
-        // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-        //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
-        // hideExtraDays={false}
-        // showOnlySelectedDayItems
-        // reservationsKeyExtractor={this.reservationsKeyExtractor}
-      />
-    );
+  componentDidMount() {
+    const currentDate = startOfDay(new Date());
+    this.loadItems(currentDate);
+    this.setState({ selectedDate: this.timeToString(currentDate) });
   }
 
   loadItems = (day) => {
-    const items = this.state.items || {};
-
-    setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = this.timeToString(time);
-
-        if (!items[strTime]) {
-          items[strTime] = [];
-          
-          const numItems = Math.floor(Math.random() * 3 + 1);
-          for (let j = 0; j < numItems; j++) {
-            items[strTime].push({
-              name: 'Item for ' + strTime + ' #' + j,
-              height: Math.max(50, Math.floor(Math.random() * 150)),
-              day: strTime
-            });
-          }
-        }
+    const events = [
+      {
+        name: 'Event 1',
+        date: this.timeToString(day),
+        height: 50
+      },
+      {
+        name: 'Event 2',
+        date: '2023-06-11',
+        height: 100
+      },
+      {
+        name: 'Event 3',
+        date: '2023-06-12',
+        height: 80
+      },
+      {
+        name: 'Event 4',
+        date: '2023-06-14',
+        height: 80
       }
-      
-      const newItems = {};
-      Object.keys(items).forEach(key => {
-        newItems[key] = items[key];
+    ];
+
+    const items = {};
+
+    events.forEach((event) => {
+      const eventDate = event.date;
+
+      if (!items[eventDate]) {
+        items[eventDate] = [];
+      }
+
+      items[eventDate].push({
+        name: event.name,
+        height: event.height
       });
-      this.setState({
-        items: newItems
-      });
-    }, 1000);
+    });
+
+    this.setState({
+      items: items
+    });
   }
 
   renderItem = (reservation, isFirst) => {
@@ -82,10 +66,10 @@ export default class CalendarScreen extends Component {
     return (
       <TouchableOpacity
         testID={testIDs.agenda.ITEM}
-        style={[styles.item, {height: reservation.height}]}
+        style={[styles.item, { height: reservation.height }]}
         onPress={() => Alert.alert(reservation.name)}
       >
-        <Text style={{fontSize, color}}>{reservation.name}</Text>
+        <Text style={{ fontSize, color }}>{reservation.name}</Text>
       </TouchableOpacity>
     );
   }
@@ -93,7 +77,7 @@ export default class CalendarScreen extends Component {
   renderEmptyDate = () => {
     return (
       <View style={styles.emptyDate}>
-        <Text>This is empty date!</Text>
+        <Text>No events available for this date</Text>
       </View>
     );
   }
@@ -105,6 +89,20 @@ export default class CalendarScreen extends Component {
   timeToString(time) {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
+  }
+
+  render() {
+    return (
+      <Agenda
+        testID={testIDs.agenda.CONTAINER}
+        items={this.state.items}
+        selected={this.state.selectedDate}
+        renderItem={this.renderItem}
+        renderEmptyDate={this.renderEmptyDate}
+        rowHasChanged={this.rowHasChanged}
+        showClosingKnob={true}
+      />
+    );
   }
 }
 

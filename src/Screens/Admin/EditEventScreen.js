@@ -47,20 +47,6 @@ export default function EditEventScreen() {
 
     const navigation = useNavigation();
 
-    const handleGoBack = () => {
-        navigation.goBack();
-      };
-
-      React.useLayoutEffect(() => {
-        navigation.setOptions({
-          headerLeft: () => (
-            <TouchableOpacity onPress={handleGoBack}>
-                <Text style={{ marginLeft: 5 }}>Go Back</Text>
-            </TouchableOpacity>
-          ),
-        });
-      }, [navigation]);
-
     const isFormEmpty = !subjectName.trim() || !eventName.trim() || !description.trim() || !date.trim();
 
     return (

@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { TamaguiProvider, YStack, H1, useSafeRef, XStack } from 'tamagui'
-import { useNavigation } from '@react-navigation/native';
 
 import config from '../../../tamagui.config';
 import { Input } from '../../Components/Input'
@@ -44,22 +43,6 @@ export default function CreateSubjectsScreen() {
         careerRef.current.focus();
         timetableRef.current.focus();
     };
-
-    const navigation = useNavigation();
-
-    const handleGoBack = () => {
-        navigation.goBack();
-      };
-
-      React.useLayoutEffect(() => {
-        navigation.setOptions({
-          headerLeft: () => (
-            <TouchableOpacity onPress={handleGoBack}>
-                <Text style={{ marginLeft: 5 }}>Go Back</Text>
-            </TouchableOpacity>
-          ),
-        });
-      }, [navigation]);
 
     const isFormEmpty = !subjectName.trim() || !description.trim() || !career.trim() || !timetable.trim();
 
