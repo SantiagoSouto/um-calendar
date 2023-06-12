@@ -19,7 +19,7 @@ export const Input = styled(TInput, {
                 borderColor: "$blue8"
             }
         }
-    } as const,
+    },
 
     defaultVariants: {
         background: "outline"

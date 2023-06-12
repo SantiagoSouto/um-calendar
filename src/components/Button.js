@@ -18,7 +18,7 @@ export const Button = styled(TButton, {
                 icon: ArrowLeft,
             }
         }
-    } as const,
+    },
 
     defaultVariants: {
         background: "normal"

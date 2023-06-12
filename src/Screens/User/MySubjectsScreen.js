@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { TamaguiProvider, YStack, H4, H5, useSafeRef, XStack } from 'tamagui'
+import { TamaguiProvider, YStack, H1, H5, useSafeRef, XStack } from 'tamagui'
 import { useContext } from 'react';
 import { AuthContext } from '../../Session/AuthContext'
 
@@ -8,25 +8,12 @@ import config from '../../../tamagui.config';
 import { Button } from '../../Components/Button'
 import { ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { CellWithImageAndText } from '../../Components/Cell';
 
-export default function HomeUserScreen() {
+export default function MySubjectsScreen() {
     const backgroundImage = require('../../../assets/fachada.jpg');
 
     const { user } = useContext(AuthContext);
-
-    const navigation = useNavigation();
-
-    const handleCalendar = () => {
-        navigation.navigate('Calendar');
-    };
-
-    const handleSeeSubjects = () => {
-        navigation.navigate('My Subjects');
-    };
-
-    const handleEditEvent = () => {
-        navigation.navigate('Edit event');
-    };
 
     return (
         <View style={{ flex: 1 }}>
@@ -39,24 +26,17 @@ export default function HomeUserScreen() {
                         <H5 color="$blue1" alignItems='center'>
                             Hola, {user.name}!
                         </H5>
+                        <H1 color="$blue1">
+                            Materias
+                        </H1>
                     </YStack>
-                    <YStack f={4} alignItems="center" space="$4" justifyContent="center">
+                    <YStack f={1} space="$2">
 
-                        <Button onPress={handleSeeSubjects}>
-                            <Button.Text style={styles.translucentText}>Mis materias</Button.Text>
-                        </Button>
+                        <CellWithImageAndText url="https://placekitten.com/200/300" subjectName="Aplicaciones móviles" 
+                                                career="Ingeniería TEL/INF" type="Electiva"/>
 
-                        <Button onPress={handleCalendar}>
-                            <Button.Text style={styles.translucentText}>Calendario</Button.Text>
-                        </Button>
-
-                        <Button onPress={handleEditEvent}>
-                            <Button.Text style={styles.translucentText}>Inscribirme a materias</Button.Text>
-                        </Button>
-
-                        <Button onPress={handleEditEvent}>
-                            <Button.Text style={styles.translucentText}>Agregar evento</Button.Text>
-                        </Button>
+                        <CellWithImageAndText url="https://placekitten.com/200/300" subjectName="Aplicaciones móviles" 
+                                                career="Ingeniería TEL/INF" type="Electiva"/>
 
                     </YStack>
 

@@ -12,6 +12,7 @@ import EditEventScreen from './src/Screens/Admin/EditEventScreen';
 import HomeUserScreen from './src/Screens/User/HomeUserScreen';
 import CalendarScreen from './src/Screens/User/CalendarScreen';
 import { AuthProvider } from './src/Session/AuthContext';
+import MySubjectsScreen from './src/Screens/User/MySubjectsScreen';
 
 export default function App() {
 
@@ -40,6 +41,7 @@ export default function App() {
           <Stack.Screen name="Edit event" component={EditEventScreen} options={{ headerShown: true, title: '' }}/>
 
           <Stack.Screen name="Home user" component={HomeUserScreen} options={{ headerShown: true, title: '' }}/>
+          <Stack.Screen name="My Subjects" component={MySubjectsScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: true, title: '' }}/>
         </Stack.Navigator>
       </NavigationContainer>
