@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { TamaguiProvider, YStack, H1, useSafeRef, XStack } from 'tamagui'
 import { useNavigation } from '@react-navigation/native';
@@ -7,21 +7,20 @@ import config from '../../../tamagui.config';
 import { Button } from '../../Components/Button'
 import { SelectDemoItem } from '../../Components/Drop';
 import { ImageBackground } from 'react-native';
+import { API_URL_BASE } from '../../../apiConfig';
 
-export default function SubjectsAdminScreen({ route }) {
+export default function EnrollSubjectScreen({ route }) {
     const backgroundImage = require('../../../assets/fachada.jpg');
 
     const navigation = useNavigation();
 
     const subjects = route.params?.items || [];
 
-    const handleAddSubject = () => {
-        navigation.navigate('Create subjects');
+    const handleEnrollSubject = () => {
+        //LLAMAR AL SERVICIO
+        navigation.goBack();
     };
-    const handleGoHome = () => {
-        navigation.navigate('Home admin');
-    };
-
+      
     return (
         <View style={{ flex: 1 }}>
             <TamaguiProvider config={config}>
@@ -33,18 +32,15 @@ export default function SubjectsAdminScreen({ route }) {
                     <YStack space="$15">
                         <YStack paddingTop="$10" alignItems="center" >
                             <H1 color="$blue1" alignItems='center'>
-                                Ver materia
+                                Inscribirse
                             </H1>
                         </YStack>
                         <YStack alignItems="center">
                             <SelectDemoItem items={subjects}/>
                         </YStack>
                         <YStack paddingTop="$10" alignItems="center" space="$4">
-                            <Button onPress={handleAddSubject}>
-                                <Button.Text style={styles.translucentText}>Agregar materia</Button.Text>
-                            </Button>
-                            <Button onPress={handleGoHome}>
-                                <Button.Text style={styles.translucentText}>Menú principal</Button.Text>
+                            <Button onPress={handleEnrollSubject}>
+                                <Button.Text style={styles.translucentText}>Inscribirme</Button.Text>
                             </Button>
                         </YStack>
                     </YStack>
@@ -70,5 +66,4 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
-
 

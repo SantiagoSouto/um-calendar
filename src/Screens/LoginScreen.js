@@ -12,6 +12,8 @@ import { Form } from 'tamagui'
 import { useNavigation } from '@react-navigation/native';
 import { API_URL_BASE } from '../../apiConfig';
 import { ActivityIndicator } from 'react-native';
+import { loginUser } from '../Networking/User/Login';
+import styles from '../../styles';
 
 export default function LoginScreen() {
     const backgroundImage = require('../../assets/fachada.jpg');
@@ -34,45 +36,21 @@ export default function LoginScreen() {
 
         setLoading(true);
         try {
-            const url = API_URL_BASE + 'user/login';
-            const data = { email: username, password: password };
-
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            const statusCode = response.status;
-
-            if (statusCode === 200) {
-                const secondResponse = await fetch(API_URL_BASE + 'user');
-                const secondData = await secondResponse.json();
-
-                const userData = {
-                    name: secondData.name,
-                    email: secondData.email,
-                    subjects: secondData.subjects,
-                    isAdmin: secondData.isAdmin
-                };
-                login(userData);
-
-                if (secondData.isAdmin) {
-                    navigation.navigate('Home admin');
-                } else {
-                    navigation.navigate('Home user');
-                }
-            } else {
-                Alert.alert('Error', 'Email y/o contraseña incorrectos');
+            const userData = await loginUser(username, password);
+      
+            if (userData) {
+              login(userData);
+      
+              if (userData.isAdmin) {
+                navigation.navigate('Home admin');
+              } else {
+                navigation.navigate('Home user');
+              }
             }
-        } catch (error) {
+          } catch (error) {
             console.error(error);
             Alert.alert('Error', 'Network error');
-        }
-
+          }
         setUsername('');
         setPassword('');
 
@@ -133,16 +111,3 @@ export default function LoginScreen() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    whiteText: {
-        color: 'white',
-    },
-    translucentText: {
-        color: 'rgba(255, 255, 255, 0.9)',
-    },
-    boldText: {
-        color: 'white',
-        fontWeight: 'bold',
-    },
-});

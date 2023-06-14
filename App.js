@@ -13,6 +13,8 @@ import HomeUserScreen from './src/Screens/User/HomeUserScreen';
 import CalendarScreen from './src/Screens/User/CalendarScreen';
 import { AuthProvider } from './src/Session/AuthContext';
 import MySubjectsScreen from './src/Screens/User/MySubjectsScreen';
+import EnrollSubjectScreen from './src/Screens/User/EnrollSubject';
+import AddEventScreen from './src/Screens/User/AddEvent';
 
 export default function App() {
 
@@ -43,6 +45,8 @@ export default function App() {
           <Stack.Screen name="Home user" component={HomeUserScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="My Subjects" component={MySubjectsScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: true, title: '' }}/>
+          <Stack.Screen name="Enroll subject" component={EnrollSubjectScreen} options={{ headerShown: true, title: '' }}/>
+          <Stack.Screen name="Add event" component={AddEventScreen} options={{ headerShown: true, title: '' }}/>
         </Stack.Navigator>
       </NavigationContainer>
       </View>

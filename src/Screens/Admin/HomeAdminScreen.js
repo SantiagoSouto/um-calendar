@@ -3,11 +3,13 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { TamaguiProvider, YStack, H4, H5, useSafeRef, XStack } from 'tamagui'
 import { useContext } from 'react';
 import { AuthContext } from '../../Session/AuthContext'
+import styles from '../../../styles';
 
 import config from '../../../tamagui.config';
 import { Button } from '../../Components/Button'
 import { ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { API_URL_BASE } from '../../../apiConfig';
 
 export default function HomeAdminScreen() {
     const backgroundImage = require('../../../assets/fachada.jpg');
@@ -20,9 +22,17 @@ export default function HomeAdminScreen() {
         navigation.navigate('Create subjects');
     };
 
-    const handleSeeSubjects = () => {
-        navigation.navigate('See subjects');
+    const handleSeeSubjects = async () => {
+        try {
+            const response = await fetch(API_URL_BASE + 'subject/all');
+            const data = await response.json();
+
+            navigation.navigate('See subjects', { items: data });
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
+
 
     const handleEditEvent = () => {
         navigation.navigate('Edit event');
@@ -61,16 +71,3 @@ export default function HomeAdminScreen() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    whiteText: {
-        color: 'white',
-    },
-    translucentText: {
-        color: 'rgba(255, 255, 255, 0.9)',
-    },
-    boldText: {
-        color: 'white',
-        fontWeight: 'bold',
-    },
-});

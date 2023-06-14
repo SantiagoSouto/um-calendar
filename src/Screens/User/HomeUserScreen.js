@@ -8,6 +8,7 @@ import config from '../../../tamagui.config';
 import { Button } from '../../Components/Button'
 import { ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { API_URL_BASE } from '../../../apiConfig';
 
 export default function HomeUserScreen() {
     const backgroundImage = require('../../../assets/fachada.jpg');
@@ -24,8 +25,19 @@ export default function HomeUserScreen() {
         navigation.navigate('My Subjects');
     };
 
-    const handleEditEvent = () => {
-        navigation.navigate('Edit event');
+    const handleEnrollSubject = async () => {
+        try {
+            const response = await fetch(API_URL_BASE + 'subject/all');
+            const data = await response.json();
+            console.log(data);
+            navigation.navigate('Enroll subject', { items: data });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const handleAddEvent = () => {
+        navigation.navigate('Add event');
     };
 
     return (
@@ -50,11 +62,11 @@ export default function HomeUserScreen() {
                             <Button.Text style={styles.translucentText}>Calendario</Button.Text>
                         </Button>
 
-                        <Button onPress={handleEditEvent}>
+                        <Button onPress={handleEnrollSubject}>
                             <Button.Text style={styles.translucentText}>Inscribirme a materias</Button.Text>
                         </Button>
 
-                        <Button onPress={handleEditEvent}>
+                        <Button onPress={handleAddEvent}>
                             <Button.Text style={styles.translucentText}>Agregar evento</Button.Text>
                         </Button>
 

@@ -13,6 +13,12 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 5,
     },
+    boldCellText: {
+      color: 'white',
+      fontWeight: 'bold',
+      marginBottom: 5,
+      fontSize: 24,
+  },
     container: {
         marginTop: 10,
       },

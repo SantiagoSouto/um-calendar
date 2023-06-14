@@ -9,11 +9,65 @@ import { Button } from '../../Components/Button'
 import { ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { CellWithImageAndText } from '../../Components/Cell';
+import { ScrollView } from 'tamagui';
 
 export default function MySubjectsScreen() {
     const backgroundImage = require('../../../assets/fachada.jpg');
 
     const { user } = useContext(AuthContext);
+
+    const subjects = [
+        {
+            subjectName: "Aplicaciones",
+            career: "Ingeniería TEL/INF",
+            type: "Electiva"
+        },
+        {
+            subjectName: "Aplicaciones móviles",
+            career: "Ingeniería TEL/INF",
+            type: "Electiva"
+        },
+        {
+            subjectName: "Aplicaciones móviles",
+            career: "Ingeniería TEL/INF",
+            type: "Electiva"
+        },
+        {
+            subjectName: "Aplicaciones móviles",
+            career: "Ingeniería TEL/INF",
+            type: "Electiva"
+        },
+        {
+            subjectName: "Aplicaciones móviles",
+            career: "Ingeniería TEL/INF",
+            type: "Electiva"
+        },
+        {
+            subjectName: "Aplicaciones móviles",
+            career: "Ingeniería TEL/INF",
+            type: "Electiva"
+        },
+        {
+            subjectName: "Aplicaciones móviles",
+            career: "Ingeniería TEL/INF",
+            type: "Electiva"
+        },
+        {
+            subjectName: "Aplicaciones móviles",
+            career: "Ingeniería TEL/INF",
+            type: "Electiva"
+        },
+        {
+            subjectName: "Aplicaciones móviles",
+            career: "Ingeniería TEL/INF",
+            type: "Electiva"
+        },
+        {
+            subjectName: "Aplicaciones",
+            career: "Ingeniería TEL/INF",
+            type: "Electiva"
+        },
+    ];
 
     return (
         <View style={{ flex: 1 }}>
@@ -22,7 +76,7 @@ export default function MySubjectsScreen() {
                     source={backgroundImage}
                     style={{ flex: 1 }}
                 >
-                    <YStack alignItems="left" mt="$2" paddingLeft="$5">
+                    <YStack alignItems="left" mt="$2" paddingLeft="$2">
                         <H5 color="$blue1" alignItems='center'>
                             Hola, {user.name}!
                         </H5>
@@ -30,31 +84,20 @@ export default function MySubjectsScreen() {
                             Materias
                         </H1>
                     </YStack>
-                    <YStack f={1} space="$2">
-
-                        <CellWithImageAndText url="https://placekitten.com/200/300" subjectName="Aplicaciones móviles" 
-                                                career="Ingeniería TEL/INF" type="Electiva"/>
-
-                        <CellWithImageAndText url="https://placekitten.com/200/300" subjectName="Aplicaciones móviles" 
-                                                career="Ingeniería TEL/INF" type="Electiva"/>
-
-                    </YStack>
-
+                    <ScrollView>
+                        <YStack f={1} space="$2">
+                            {subjects.map((subject, index) => (
+                                <CellWithImageAndText
+                                    key={index}
+                                    subjectName={subject.subjectName}
+                                    career={subject.career}
+                                    type={subject.type}
+                                />
+                            ))}
+                        </YStack>
+                    </ScrollView>
                 </ImageBackground>
             </TamaguiProvider>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    whiteText: {
-        color: 'white',
-    },
-    translucentText: {
-        color: 'rgba(255, 255, 255, 0.9)',
-    },
-    boldText: {
-        color: 'white',
-        fontWeight: 'bold',
-    },
-});
