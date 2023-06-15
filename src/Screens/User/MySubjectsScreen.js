@@ -11,63 +11,12 @@ import { useNavigation } from '@react-navigation/native';
 import { CellWithImageAndText } from '../../Components/Cell';
 import { ScrollView } from 'tamagui';
 
-export default function MySubjectsScreen() {
+export default function MySubjectsScreen({ route }) {
     const backgroundImage = require('../../../assets/fachada.jpg');
 
     const { user } = useContext(AuthContext);
 
-    const subjects = [
-        {
-            subjectName: "Aplicaciones",
-            career: "Ingeniería TEL/INF",
-            type: "Electiva"
-        },
-        {
-            subjectName: "Aplicaciones móviles",
-            career: "Ingeniería TEL/INF",
-            type: "Electiva"
-        },
-        {
-            subjectName: "Aplicaciones móviles",
-            career: "Ingeniería TEL/INF",
-            type: "Electiva"
-        },
-        {
-            subjectName: "Aplicaciones móviles",
-            career: "Ingeniería TEL/INF",
-            type: "Electiva"
-        },
-        {
-            subjectName: "Aplicaciones móviles",
-            career: "Ingeniería TEL/INF",
-            type: "Electiva"
-        },
-        {
-            subjectName: "Aplicaciones móviles",
-            career: "Ingeniería TEL/INF",
-            type: "Electiva"
-        },
-        {
-            subjectName: "Aplicaciones móviles",
-            career: "Ingeniería TEL/INF",
-            type: "Electiva"
-        },
-        {
-            subjectName: "Aplicaciones móviles",
-            career: "Ingeniería TEL/INF",
-            type: "Electiva"
-        },
-        {
-            subjectName: "Aplicaciones móviles",
-            career: "Ingeniería TEL/INF",
-            type: "Electiva"
-        },
-        {
-            subjectName: "Aplicaciones",
-            career: "Ingeniería TEL/INF",
-            type: "Electiva"
-        },
-    ];
+    const subjects = route.params?.items || [];
 
     return (
         <View style={{ flex: 1 }}>
@@ -89,9 +38,9 @@ export default function MySubjectsScreen() {
                             {subjects.map((subject, index) => (
                                 <CellWithImageAndText
                                     key={index}
-                                    subjectName={subject.subjectName}
+                                    subjectName={subject.name}
                                     career={subject.career}
-                                    type={subject.type}
+                                    type={'Año:' + subject.year}
                                 />
                             ))}
                         </YStack>

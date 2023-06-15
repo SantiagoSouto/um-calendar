@@ -119,7 +119,7 @@ export default function SignUpScreen() {
                         <Input value={password} onChangeText={setPassword} secureTextEntry placeholder="Constraseña" 
                             onSubmitEditing={() => passwordConfirmedRef.current.focus()} ref={passwordRef}/>
                         <Input value={passwordConfirmed} onChangeText={setPasswordConfirmed} secureTextEntry 
-                            placeholder="Repita constraseña" ref={passwordConfirmedRef}/>
+                            placeholder="Repita contraseña" ref={passwordConfirmedRef}/>
 
                         <YStack alignItems="center" mt="$20">
                         {isLoading ? (

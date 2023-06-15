@@ -5,7 +5,6 @@ import { Select, Adapt, Sheet, getFontSize } from 'tamagui';
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons';
 
 export function SelectDemoItem({ items }) {
-  const [val, setVal] = useState('apple');
 
   return (
     <Select>

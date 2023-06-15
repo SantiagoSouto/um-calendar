@@ -4,12 +4,6 @@ export const Input = styled(TInput, {
     size: "$4",
 
     variants: {
-        // pin: {
-        //     top: {
-        //       position: 'relative',
-        //       top: 100,
-        //     },
-        //   },
         background: {
             normal: {
                 bg: "$blue8"
