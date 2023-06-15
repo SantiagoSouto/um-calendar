@@ -21,15 +21,22 @@ export default function HomeUserScreen() {
         navigation.navigate('Calendar');
     };
 
-    const handleSeeSubjects = () => {
-        navigation.navigate('My Subjects');
+    const handleSeeSubjects = async () => {
+        try {
+            const response = await fetch(API_URL_BASE + 'subject/all');
+            const data = await response.json();
+
+            navigation.navigate('My Subjects', { items: data });
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     const handleEnrollSubject = async () => {
         try {
             const response = await fetch(API_URL_BASE + 'subject/all');
             const data = await response.json();
-            console.log(data);
+
             navigation.navigate('Enroll subject', { items: data });
         } catch (error) {
             console.error('Error:', error);
