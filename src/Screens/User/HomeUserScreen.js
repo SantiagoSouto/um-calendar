@@ -29,7 +29,7 @@ export default function HomeUserScreen() {
         try {
             const response = await fetch(API_URL_BASE + 'subject/all');
             const data = await response.json();
-            console.log(data);
+
             navigation.navigate('Enroll subject', { items: data });
         } catch (error) {
             console.error('Error:', error);
