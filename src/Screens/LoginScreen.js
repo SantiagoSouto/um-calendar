@@ -104,7 +104,6 @@ export default function LoginScreen() {
                                 </Form.Trigger>
                             )}
                         </YStack>
-
                     </Form>
                 </ImageBackground>
             </TamaguiProvider>

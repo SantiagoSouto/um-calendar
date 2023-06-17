@@ -7,6 +7,7 @@ import {
   XStack,
 } from 'tamagui'
 
+
 export function SelectItem(props) {
   const { subjects, onSelect } = props;
 
