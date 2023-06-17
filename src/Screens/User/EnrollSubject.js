@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import config from '../../../tamagui.config';
 import { Button } from '../../Components/Button'
-import { SelectDemoItem } from '../../Components/Drop';
+import { SelectItem } from '../../Components/Drop';
 import { ImageBackground } from 'react-native';
 import { API_URL_BASE } from '../../../apiConfig';
 
@@ -16,10 +16,31 @@ export default function EnrollSubjectScreen({ route }) {
 
     const subjects = route.params?.items || [];
 
-    const handleEnrollSubject = () => {
-        //LLAMAR AL SERVICIO
-        navigation.goBack();
-    };
+    const [selectedSubject, setSelectedSubject] = useState('');
+
+    const handleEnrollSubject = async () => {
+        if (selectedSubject) {
+          try {
+            const response = await fetch(`${API_URL_BASE}subjects/${selectedSubject}`, {
+                method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ subject: selectedSubject }),
+              });
+        
+              if (response.ok) {
+                navigation.goBack();
+              } else {
+                throw new Error('Failed to enroll in subject');
+              }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        } else {
+          Alert.alert('Error', 'Por favor, seleccione una materia');
+        }
+      };
       
     return (
         <View style={{ flex: 1 }}>
@@ -28,7 +49,6 @@ export default function EnrollSubjectScreen({ route }) {
                     source={backgroundImage}
                     style={{ flex: 1 }}
                 >
-
                     <YStack space="$15">
                         <YStack paddingTop="$10" alignItems="center" >
                             <H1 color="$blue1" alignItems='center'>
@@ -36,12 +56,12 @@ export default function EnrollSubjectScreen({ route }) {
                             </H1>
                         </YStack>
                         <YStack alignItems="center">
-                            <SelectDemoItem items={subjects}/>
+                            <SelectItem subjects={subjects} onSelect={setSelectedSubject} />
                         </YStack>
                         <YStack paddingTop="$10" alignItems="center" space="$4">
-                            <Button onPress={handleEnrollSubject}>
-                                <Button.Text style={styles.translucentText}>Inscribirme</Button.Text>
-                            </Button>
+                        <Button onPress={handleEnrollSubject}>
+                            <Button.Text style={styles.translucentText}>Inscribirme</Button.Text>
+                        </Button>
                         </YStack>
                     </YStack>
                 </ImageBackground>

@@ -3,12 +3,21 @@ import { YStack } from 'tamagui'
 import React, { useState } from 'react';
 import { Select, Adapt, Sheet, getFontSize } from 'tamagui';
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons';
+import {
+  XStack,
+} from 'tamagui'
 
-export function SelectDemoItem({ items }) {
+
+export function SelectItem(props) {
+  const { subjects, onSelect } = props;
+
+  const handleValueChange = (value) => {
+    onSelect(value);
+  };
 
   return (
-    <Select>
-      <Select.Trigger width={200} iconAfter={ChevronDown}>
+    <Select onValueChange={handleValueChange} {...props}>
+      <Select.Trigger width={350} iconAfter={ChevronDown}>
         <Select.Value placeholder="Materias" />
       </Select.Trigger>
 
@@ -31,21 +40,41 @@ export function SelectDemoItem({ items }) {
           width="100%"
           height="$3"
         >
-          <ChevronUp size={20} />
+          <YStack zIndex={10}>
+            <ChevronUp size={20} />
+          </YStack>
         </Select.ScrollUpButton>
 
         <Select.Viewport minWidth={200}>
-          <Select.Group space="$0">
-            <Select.Label>Materias</Select.Label>
-            {items.map((item, i) => (
-              <Select.Item index={i} key={item.name} value={item.name.toLowerCase()}>
-                <Select.ItemText>{item.name}</Select.ItemText>
-                <Select.ItemIndicator marginLeft="auto">
-                  <Check size={16} />
-                </Select.ItemIndicator>
-              </Select.Item>
-            ))}
-          </Select.Group>
+          <XStack>
+            <Select.Group space="$0">
+              <Select.Label>Materias</Select.Label>
+              {subjects.map((item, i) => {
+                return (
+                  <Select.Item index={i} key={item.name} value={item.name}>
+                    <Select.ItemText>{item.name}</Select.ItemText>
+                    <Select.ItemIndicator marginLeft="auto">
+                      <Check size={16} />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                )
+              })}
+            </Select.Group>
+            {props.native && (
+              <YStack
+                position="absolute"
+                right={0}
+                top={0}
+                bottom={0}
+                alignItems="center"
+                justifyContent="center"
+                width={'$4'}
+                pointerEvents="none"
+              >
+                <ChevronDown size={getFontSize((props.size ?? '$true'))} />
+              </YStack>
+            )}
+          </XStack>
         </Select.Viewport>
 
         <Select.ScrollDownButton
@@ -55,9 +84,11 @@ export function SelectDemoItem({ items }) {
           width="100%"
           height="$3"
         >
-          <ChevronDown size={20} />
+          <YStack zIndex={10}>
+            <ChevronDown size={20} />
+          </YStack>
         </Select.ScrollDownButton>
       </Select.Content>
     </Select>
-  );
+  )
 }

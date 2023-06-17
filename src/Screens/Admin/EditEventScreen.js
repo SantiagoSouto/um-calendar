@@ -29,12 +29,6 @@ export default function EditEventScreen() {
             return;
         }
 
-        console.log('Form submitted');
-        console.log('subjectName:', subjectName);
-        console.log('eventName:', eventName);
-        console.log('description:', description);
-        console.log('date:', date);
-
         setsubjectName('');
         seteventName('');
         setdescription('');

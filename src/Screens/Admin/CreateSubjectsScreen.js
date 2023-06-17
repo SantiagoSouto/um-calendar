@@ -28,12 +28,6 @@ export default function CreateSubjectsScreen() {
             return;
         }
 
-        console.log('Form submitted');
-        console.log('subjectName:', subjectName);
-        console.log('description:', description);
-        console.log('career:', career);
-        console.log('timetable:', timetable);
-
         setsubjectName('');
         setdescription('');
         setcareer('');
