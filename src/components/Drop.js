@@ -9,7 +9,7 @@ import {
 
 
 export function SelectItem(props) {
-  const { subjects, onSelect } = props;
+  const { title, subjects, onSelect } = props;
 
   const handleValueChange = (value) => {
     onSelect(value);
@@ -17,8 +17,8 @@ export function SelectItem(props) {
 
   return (
     <Select onValueChange={handleValueChange} {...props}>
-      <Select.Trigger width={350} iconAfter={ChevronDown}>
-        <Select.Value placeholder="Materias" />
+      <Select.Trigger width={360} iconAfter={ChevronDown}>
+        <Select.Value placeholder={title} />
       </Select.Trigger>
 
       <Adapt when="sm" platform="touch">
@@ -48,7 +48,7 @@ export function SelectItem(props) {
         <Select.Viewport minWidth={200}>
           <XStack>
             <Select.Group space="$0">
-              <Select.Label>Materias</Select.Label>
+              <Select.Label>{title}</Select.Label>
               {subjects.map((item, i) => {
                 return (
                   <Select.Item index={i} key={item.name} value={item.name}>

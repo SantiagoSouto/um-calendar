@@ -6,11 +6,11 @@ export const Input = styled(TInput, {
     variants: {
         background: {
             normal: {
-                bg: "$blue8"
+                bg: "$blue11"
             },
             outline: {
                 borderWidth: "$1",
-                borderColor: "$blue8"
+                borderColor: "$blue11"
             }
         }
     },

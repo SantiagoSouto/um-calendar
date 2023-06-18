@@ -8,11 +8,11 @@ export const Button = styled(TButton, {
     variants: {
         background: {
             normal: {
-                bg: "$blue8"
+                bg: "$blue11"
             },
             outline: {
                 borderWidth: "$1",
-                borderColor: "$blue6"
+                borderColor: "$blue11"
             },
             back: {
                 icon: ArrowLeft,
