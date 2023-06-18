@@ -27,12 +27,11 @@ export default function HomeAdminScreen() {
             const response = await fetch(API_URL_BASE + 'subject/all');
             const data = await response.json();
 
-            navigation.navigate('See subjects', { items: data });
+            navigation.navigate('My Subjects', { items: data });
         } catch (error) {
             console.error('Error:', error);
         }
     };
-
 
     const handleEditEvent = () => {
         navigation.navigate('Edit event');

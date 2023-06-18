@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import config from '../../../tamagui.config';
 import { Button } from '../../Components/Button'
-import { SelectDemoItem } from '../../Components/Drop';
+import { SelectItem } from '../../Components/Drop';
 import { ImageBackground } from 'react-native';
 
 export default function SubjectsAdminScreen({ route }) {
@@ -37,7 +37,7 @@ export default function SubjectsAdminScreen({ route }) {
                             </H1>
                         </YStack>
                         <YStack alignItems="center">
-                            <SelectDemoItem items={subjects}/>
+                            <SelectItem items={subjects}/>
                         </YStack>
                         <YStack paddingTop="$10" alignItems="center" space="$4">
                             <Button onPress={handleAddSubject}>
