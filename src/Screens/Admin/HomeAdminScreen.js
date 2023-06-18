@@ -33,8 +33,26 @@ export default function HomeAdminScreen() {
         }
     };
 
-    const handleEditEvent = () => {
-        navigation.navigate('Edit event');
+    const handleSeeEvents = async () => {
+        try {
+            const response = await fetch(API_URL_BASE + 'event/approved');
+            const data = await response.json();
+
+            navigation.navigate('All events', { items: data });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const handlePendingEvents = async () => {
+        try {
+            const response = await fetch(API_URL_BASE + 'event/pending');
+            const data = await response.json();
+
+            navigation.navigate('All events', { items: data });// change to Edit Event Screen
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -54,13 +72,14 @@ export default function HomeAdminScreen() {
                         <Button onPress={handleCreateSubjects}>
                             <Button.Text style={styles.translucentText}>Crear materias</Button.Text>
                         </Button>
-
                         <Button onPress={handleSeeSubjects}>
                             <Button.Text style={styles.translucentText}>Ver materias</Button.Text>
                         </Button>
-
-                        <Button onPress={handleEditEvent}>
-                            <Button.Text style={styles.translucentText}>Editar eventos</Button.Text>
+                        <Button onPress={handleSeeEvents}>
+                            <Button.Text style={styles.translucentText}>Ver eventos</Button.Text>
+                        </Button>
+                        <Button onPress={handlePendingEvents}>
+                            <Button.Text style={styles.translucentText}>Eventos pendientes</Button.Text>
                         </Button>
 
                     </YStack>

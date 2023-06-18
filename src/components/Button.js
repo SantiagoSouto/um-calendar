@@ -1,5 +1,6 @@
 import { Button as TButton, styled } from "tamagui";
 import { ArrowLeft } from  '@tamagui/lucide-icons'
+import { Pencil } from '@tamagui/lucide-icons'
 
 export const Button = styled(TButton, {
     w: "$15",
@@ -15,7 +16,7 @@ export const Button = styled(TButton, {
                 borderColor: "$blue11"
             },
             back: {
-                icon: ArrowLeft,
+                icon: Pencil,
             }
         }
     },

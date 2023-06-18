@@ -40,7 +40,7 @@ export default function MySubjectsScreen({ route }) {
                                     key={index}
                                     subjectName={subject.name}
                                     career={subject.career}
-                                    type={'Año:' + subject.year}
+                                    type={'Año: ' + subject.year}
                                 />
                             ))}
                         </YStack>

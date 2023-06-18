@@ -15,6 +15,7 @@ import { AuthProvider } from './src/Session/AuthContext';
 import MySubjectsScreen from './src/Screens/User/MySubjectsScreen';
 import EnrollSubjectScreen from './src/Screens/User/EnrollSubject';
 import AddEventScreen from './src/Screens/User/AddEvent';
+import AllEventsScreen from './src/Screens/Admin/AllEvents';
 
 export default function App() {
 
@@ -40,6 +41,7 @@ export default function App() {
           <Stack.Screen name="Home admin" component={HomeAdminScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="Create subjects" component={CreateSubjectsScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="See subjects" component={SubjectsAdminScreen} options={{ headerShown: true, title: '' }}/>
+          <Stack.Screen name="All events" component={AllEventsScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="Edit event" component={EditEventScreen} options={{ headerShown: true, title: '' }}/>
 
           <Stack.Screen name="Home user" component={HomeUserScreen} options={{ headerShown: true, title: '' }}/>
