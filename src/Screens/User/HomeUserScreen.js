@@ -23,7 +23,7 @@ export default function HomeUserScreen() {
 
     const handleSeeSubjects = async () => {
         try {
-            const response = await fetch(API_URL_BASE + 'subject/all');
+            const response = await fetch(API_URL_BASE + 'user/subjects');
             const data = await response.json();
 
             navigation.navigate('My Subjects', { items: data });
