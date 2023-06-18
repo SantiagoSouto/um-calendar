@@ -21,13 +21,9 @@ export default function EnrollSubjectScreen({ route }) {
     const handleEnrollSubject = async () => {
         if (selectedSubject) {
           try {
-            const response = await fetch(`${API_URL_BASE}subjects/${selectedSubject}`, {
+            const response = await fetch(`${API_URL_BASE}user/subject/${selectedSubject}`, {
                 method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ subject: selectedSubject }),
-              });
+            });
         
               if (response.ok) {
                 navigation.goBack();
@@ -56,7 +52,7 @@ export default function EnrollSubjectScreen({ route }) {
                             </H1>
                         </YStack>
                         <YStack alignItems="center">
-                            <SelectItem subjects={subjects} onSelect={setSelectedSubject} />
+                            <SelectItem title={'Materias'} subjects={subjects} onSelect={setSelectedSubject} />
                         </YStack>
                         <YStack paddingTop="$10" alignItems="center" space="$4">
                         <Button onPress={handleEnrollSubject}>
