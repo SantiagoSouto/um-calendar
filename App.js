@@ -16,6 +16,7 @@ import MySubjectsScreen from './src/Screens/User/MySubjectsScreen';
 import EnrollSubjectScreen from './src/Screens/User/EnrollSubject';
 import AddEventScreen from './src/Screens/User/AddEvent';
 import AllEventsScreen from './src/Screens/Admin/AllEvents';
+import ApproveEvent from './src/Screens/Admin/ApproveEvent';
 
 export default function App() {
 
@@ -49,6 +50,7 @@ export default function App() {
           <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="Enroll subject" component={EnrollSubjectScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="Add event" component={AddEventScreen} options={{ headerShown: true, title: '' }}/>
+          <Stack.Screen name="Approve event" component={ApproveEvent} options={{ headerShown: true, title: '' }}/>
         </Stack.Navigator>
       </NavigationContainer>
       </View>
