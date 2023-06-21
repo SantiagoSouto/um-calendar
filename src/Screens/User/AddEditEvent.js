@@ -32,14 +32,6 @@ export default function AddEventScreen({route}) {
         }
 
         try {
-            console.log({
-                _id: editEvent._id,
-                name: eventName,
-                type: eventType,
-                subject: selectedSubject,
-                date: date,
-                time: time,
-            });
             const response = await fetch(`${API_URL_BASE}event`, {
                 method: 'PUT',
                 headers: {
@@ -55,8 +47,9 @@ export default function AddEventScreen({route}) {
                     time: time,
                 })
             });
-            console.log(response);
+            
             if (response.ok) {
+                Alert.alert("Evento actualizado correctamente");
                 navigation.goBack();
             } else {
                 throw new Error('Failed to update event');
@@ -93,11 +86,12 @@ export default function AddEventScreen({route}) {
                     time: time,
                 })
             });
-            console.log(response);
+            
             if (response.ok) {
-            navigation.goBack();
+                Alert.alert("Evento creado correctamente");
+                navigation.goBack();
             } else {
-            throw new Error('Failed to add event');
+                throw new Error('Failed to add event');
             }
         } catch (error) {
             console.error('Error:', error);

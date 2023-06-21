@@ -44,13 +44,13 @@ export default function App() {
           <Stack.Screen name="See subjects" component={SubjectsAdminScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="All events" component={AllEventsScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="Edit event" component={EditEventScreen} options={{ headerShown: true, title: '' }}/>
+          <Stack.Screen name="Approve event" component={ApproveEvent} options={{ headerShown: true, title: '' }}/>
 
           <Stack.Screen name="Home user" component={HomeUserScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="My Subjects" component={MySubjectsScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="Enroll subject" component={EnrollSubjectScreen} options={{ headerShown: true, title: '' }}/>
           <Stack.Screen name="Add event" component={AddEventScreen} options={{ headerShown: true, title: '' }}/>
-          <Stack.Screen name="Approve event" component={ApproveEvent} options={{ headerShown: true, title: '' }}/>
         </Stack.Navigator>
       </NavigationContainer>
       </View>

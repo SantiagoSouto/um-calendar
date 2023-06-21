@@ -49,7 +49,7 @@ export default function HomeAdminScreen() {
             const response = await fetch(API_URL_BASE + 'event/pending');
             const data = await response.json();
 
-            navigation.navigate('Approve event', { items: data });// change to Edit Event Screen
+            navigation.navigate('Approve event', { items: data });
         } catch (error) {
             console.error('Error:', error);
         }
