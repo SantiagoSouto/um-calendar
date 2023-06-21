@@ -17,6 +17,8 @@ import EnrollSubjectScreen from './src/Screens/User/EnrollSubject';
 import AddEventScreen from './src/Screens/User/AddEditEvent';
 import AllEventsScreen from './src/Screens/Admin/AllEvents';
 import ApproveEvent from './src/Screens/Admin/ApproveEvent';
+import { MaterialIcons } from '@expo/vector-icons';
+import { logoutUser } from './src/Networking/User/Login';
 
 export default function App() {
 
@@ -31,6 +33,20 @@ export default function App() {
   
   const Stack = createNativeStackNavigator();
 
+  const logout = (navigation) => {
+    return (
+      <MaterialIcons 
+        name="logout" 
+        size={24} 
+        color="black" 
+        onPress={() => {
+          logoutUser();
+          navigation.navigate("Log in");
+        }}
+      />
+    )
+  }
+
   return (
     <AuthProvider>
     <View style={{ flex: 1 }}>
@@ -39,18 +55,18 @@ export default function App() {
           <Stack.Screen name="Log in" component={LoginScreen} options={{ headerShown: false, title: 'Iniciar sesión' }}/>
           <Stack.Screen name="Sign Up" component={SignUpScreen} options={{ headerShown: true, title: '' }}/>
 
-          <Stack.Screen name="Home admin" component={HomeAdminScreen} options={{ headerShown: true, title: '' }}/>
-          <Stack.Screen name="Create subjects" component={CreateSubjectsScreen} options={{ headerShown: true, title: '' }}/>
-          <Stack.Screen name="See subjects" component={SubjectsAdminScreen} options={{ headerShown: true, title: '' }}/>
-          <Stack.Screen name="All events" component={AllEventsScreen} options={{ headerShown: true, title: '' }}/>
-          <Stack.Screen name="Edit event" component={EditEventScreen} options={{ headerShown: true, title: '' }}/>
-          <Stack.Screen name="Approve event" component={ApproveEvent} options={{ headerShown: true, title: '' }}/>
+          <Stack.Screen name="Home admin" component={HomeAdminScreen} options={({ navigation }) => ({ headerShown: true, title: '', headerRight: () => logout(navigation) })}/>
+          <Stack.Screen name="Create subjects" component={CreateSubjectsScreen} options={({ navigation }) => ({ headerShown: true, title: '', headerRight: () => logout(navigation) })}/>
+          <Stack.Screen name="See subjects" component={SubjectsAdminScreen} options={({ navigation }) => ({ headerShown: true, title: '', headerRight: () => logout(navigation) })}/>
+          <Stack.Screen name="All events" component={AllEventsScreen} options={({ navigation }) => ({ headerShown: true, title: '', headerRight: () => logout(navigation) })}/>
+          <Stack.Screen name="Edit event" component={EditEventScreen} options={({ navigation }) => ({ headerShown: true, title: '', headerRight: () => logout(navigation) })}/>
+          <Stack.Screen name="Approve event" component={ApproveEvent} options={({ navigation }) => ({ headerShown: true, title: '', headerRight: () => logout(navigation) })}/>
 
-          <Stack.Screen name="Home user" component={HomeUserScreen} options={{ headerShown: true, title: '' }}/>
-          <Stack.Screen name="My Subjects" component={MySubjectsScreen} options={{ headerShown: true, title: '' }}/>
-          <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: true, title: '' }}/>
-          <Stack.Screen name="Enroll subject" component={EnrollSubjectScreen} options={{ headerShown: true, title: '' }}/>
-          <Stack.Screen name="Add event" component={AddEventScreen} options={{ headerShown: true, title: '' }}/>
+          <Stack.Screen name="Home user" component={HomeUserScreen} options={({ navigation }) => ({ headerShown: true, title: '', headerRight: () => logout(navigation) })}/>
+          <Stack.Screen name="My Subjects" component={MySubjectsScreen} options={({ navigation }) => ({ headerShown: true, title: '', headerRight: () => logout(navigation) })}/>
+          <Stack.Screen name="Calendar" component={CalendarScreen} options={({ navigation }) => ({ headerShown: true, title: '', headerRight: () => logout(navigation) })}/>
+          <Stack.Screen name="Enroll subject" component={EnrollSubjectScreen} options={({ navigation }) => ({ headerShown: true, title: '', headerRight: () => logout(navigation) })}/>
+          <Stack.Screen name="Add event" component={AddEventScreen} options={({ navigation }) => ({ headerShown: true, title: '', headerRight: () => logout(navigation) })}/>
         </Stack.Navigator>
       </NavigationContainer>
       </View>

@@ -51,3 +51,23 @@ export async function loginUser(username, password) {
     return null;
   }
 }
+
+export async function logoutUser() {
+  try {
+    const url = API_URL_BASE + 'user/logout';
+
+    const response = await fetch(url);
+
+    const statusCode = response.status;
+
+    if (statusCode === 200) {
+      
+    } else {
+      Alert.alert('Error', 'Email y/o contraseña incorrectos');
+      return null;
+    }
+
+  } catch (error) {
+    return null;
+  }
+}
