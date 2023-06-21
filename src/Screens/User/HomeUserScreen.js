@@ -17,8 +17,64 @@ export default function HomeUserScreen() {
 
     const navigation = useNavigation();
 
-    const handleCalendar = () => {
-        navigation.navigate('Calendar');
+    const handleCalendar = async () => {
+        try {
+            const pendingEventsResponse = await fetch(API_URL_BASE + 'event/pending');
+            const pendingEvents = await pendingEventsResponse.json();
+
+            const approvedEventsResponse = await fetch(API_URL_BASE + 'event/approved');
+            const approvedEvents = await approvedEventsResponse.json();
+
+            let items = {}
+            const now = (new Date()).toISOString().split('T')[0];
+
+            pendingEvents.forEach((event) => {
+                const eventTime = new Date(event.date).toLocaleTimeString('es-AR', {hour12: false, timeZone: 'America/Montevideo'});
+                const eventDate = new Date(event.date).toISOString().split('T')[0];
+                
+                if (!items[eventDate]) {
+                    items[eventDate] = [];
+                }
+                
+                if (!items[now]) {
+                    items[now] = [];
+                }
+            
+                items[eventDate].push({
+                  name: event.name,
+                  hour: eventTime,
+                  eventType: event.eventType,
+                  approved: "Pendiente",
+                  height: 80
+                });
+            });
+
+            approvedEvents.forEach((event) => {
+                const eventTime = new Date(event.date).toLocaleTimeString('es-AR', {hour12: false, timeZone: 'America/Montevideo'});
+                const eventDate = new Date(event.date).toISOString().split('T')[0];
+          
+                if (!items[eventDate]) {
+                  items[eventDate] = [];
+                }
+          
+                if (!items[now]) {
+                  items[now] = [];
+                }
+            
+                items[eventDate].push({
+                  name: event.name,
+                  hour: eventTime,
+                  eventType: event.eventType,
+                  approved: "Confirmado",
+                  height: 80
+                });
+            });
+
+            navigation.navigate('Calendar', { items: items });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+       
     };
 
     const handleSeeSubjects = async () => {
@@ -43,8 +99,17 @@ export default function HomeUserScreen() {
         }
     };
 
-    const handleAddEvent = () => {
-        navigation.navigate('Add event');
+    const handleAddEvent = async () => {
+        try {
+            const response = await fetch(API_URL_BASE + 'subject/all');
+            const subjects = await response.json();
+
+            const eventTypes = ['parcial', 'entrega', 'obligatorio', 'recuperacion'];
+
+            navigation.navigate('Add event', { subjects: subjects, eventTypes: eventTypes });
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { TamaguiProvider, YStack, H1, useSafeRef, XStack } from 'tamagui'
 import { useContext } from 'react';
@@ -12,7 +12,7 @@ import { Form } from 'tamagui'
 import { useNavigation } from '@react-navigation/native';
 import { API_URL_BASE } from '../../apiConfig';
 import { ActivityIndicator } from 'react-native';
-import { loginUser } from '../Networking/User/Login';
+import { loginUser, isLoggedIn } from '../Networking/User/Login';
 import styles from '../../styles';
 
 export default function LoginScreen() {
@@ -27,6 +27,29 @@ export default function LoginScreen() {
     const [isLoading, setLoading] = useState(false);
 
     const { login } = useContext(AuthContext);
+
+    useEffect(() => {
+        setLoading(true);
+        async function fetchUser() {
+            try {
+                const userData = await isLoggedIn();
+                if (userData) {
+                    login(userData);
+
+                    if (userData.isAdmin) {
+                        navigation.navigate('Home admin');
+                    } else {
+                        navigation.navigate('Home user');
+                    }
+                }
+                setLoading(false);
+            } catch (error) {
+                console.error(error);
+                Alert.alert('Error', 'Network error');
+            }
+        }
+        fetchUser();
+    }, []);
 
     const handleSubmit = async () => {
         if (!username.trim() || !password.trim()) {
