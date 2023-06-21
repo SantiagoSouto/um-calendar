@@ -7,6 +7,17 @@ import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { API_URL_BASE } from '../../apiConfig';
 
+const handleRefresh = async (page, navigation, endpoint) => {
+  try {
+      const response = await fetch(API_URL_BASE + `event/${endpoint}`);
+      const data = await response.json();
+
+      navigation.navigate(page, { items: data });
+  } catch (error) {
+      console.error('Error:', error);
+  }
+};
+
 
 export function CellEvents({ events }) {
   const navigation = useNavigation();
@@ -28,6 +39,45 @@ export function CellEvents({ events }) {
     }
   };
 
+  const handleDeleteEvent = async(event) => {
+    try {
+
+      const data = {_id: event._id};
+
+      const request = {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      };
+
+      Alert.alert('Eliminar evento', 'Estas a punto de eliminar el evento ' + event.name, [
+        {
+          text: 'Cancelar',
+          onPress: () => console.log('Cancelado'),
+          style: 'cancel',
+        },
+
+        {
+          text: 'OK', 
+          onPress: async () => {
+            const response = await fetch(API_URL_BASE + 'event', request);
+            if (response.ok) {
+              Alert.alert('Evento eliminado');
+              handleRefresh('All events', navigation, 'approved');
+            } else {
+              Alert.alert('Error', 'Algo salio mal')
+            }
+          }
+        },
+      ]);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
     <XStack alignItems="center" paddingLeft="$2" paddingBottom="$2"> 
@@ -42,7 +92,10 @@ export function CellEvents({ events }) {
                 <Text style={[styles.boldCellEventText, { marginLeft: 10 }]}>{'-'}</Text>
                 <Text style={[styles.boldCellEventText, { marginLeft: 10 }]}>{new Date(event.date).toLocaleTimeString('es-AR', {hour12: false, timeZone: 'America/Montevideo'})}</Text>
                 <TouchableOpacity style={styles.button} onPress={() => handleEditEvent(event)}>
-                    <Ionicons name="pencil" size={14} color="white" />
+                    <Ionicons name="pencil" size={24} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => handleDeleteEvent(event)}>
+                  <AntDesign name="delete" size={24} color="red" />
                 </TouchableOpacity>
             </XStack>
           </View>
@@ -77,6 +130,7 @@ export function CellEventsApprove({ events }) {
       const response = await fetch(`${API_URL_BASE}event`, request);
       if (response.ok) {
         Alert.alert('Evento aprobado')
+        handleRefresh('Approve event', navigation, 'pending')
       } else {
         Alert.alert('Error', 'Algo salio mal')
       }
@@ -101,7 +155,7 @@ export function CellEventsApprove({ events }) {
         body: JSON.stringify(data)
       };
 
-      Alert.alert('Eliminar evento', 'Estas a punto de eliminar el evento' + event.name, [
+      Alert.alert('Eliminar evento', 'Estas a punto de eliminar el evento ' + event.name, [
         {
           text: 'Cancelar',
           onPress: () => console.log('Cancelado'),
@@ -114,6 +168,7 @@ export function CellEventsApprove({ events }) {
             const response = await fetch(API_URL_BASE + 'event', request);
             if (response.ok) {
               Alert.alert('Evento eliminado')
+              handleRefresh('Approve event', navigation, 'pending')
             } else {
               Alert.alert('Error', 'Algo salio mal')
             }
@@ -142,7 +197,7 @@ export function CellEventsApprove({ events }) {
                   <AntDesign name="check" size={24} color="green" />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={() => handleDeclineEvent(event)}>
-                  <AntDesign name="close" size={24} color="red" />
+                  <AntDesign name="delete" size={24} color="red" />
                 </TouchableOpacity>
             </XStack>
           </View>
