@@ -17,8 +17,16 @@ export default function HomeUserScreen() {
 
     const navigation = useNavigation();
 
-    const handleCalendar = () => {
-        navigation.navigate('Calendar');
+    const handleCalendar = async () => {
+        try {
+            const response = await fetch(API_URL_BASE + 'subject/Aplicaciones móviles/events');
+            const data = await response.json();
+
+            navigation.navigate('Calendar', { items: data });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+       
     };
 
     const handleSeeSubjects = async () => {
