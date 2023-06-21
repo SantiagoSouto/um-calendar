@@ -10,54 +10,36 @@ export default class CalendarScreen extends Component {
   };
 
   componentDidMount() {
+    const { route } = this.props;
+    const { items } = route.params;
     const currentDate = startOfDay(new Date());
     this.loadItems(currentDate);
     this.setState({ selectedDate: this.timeToString(currentDate) });
   }
 
-  loadItems = (day) => {
-    const events = [
-      {
-        name: 'Event 1',
-        date: this.timeToString(day),
-        height: 50
-      },
-      {
-        name: 'Event 2',
-        date: '2023-06-11',
-        height: 100
-      },
-      {
-        name: 'Event 3',
-        date: '2023-06-12',
-        height: 80
-      },
-      {
-        name: 'Event 4',
-        date: '2023-06-14',
-        height: 80
-      }
-    ];
-
-    const items = {};
-
-    events.forEach((event) => {
-      const eventDate = event.date;
-
+  loadItems = () => {
+    const { items } = this.state;
+    const { route } = this.props;
+    const { items: passedItems } = route.params;
+  
+    passedItems.forEach((event) => {
+      const eventDate = event.date.split('T')[0];
+  
       if (!items[eventDate]) {
         items[eventDate] = [];
       }
-
+  
       items[eventDate].push({
         name: event.name,
         height: event.height
       });
     });
-
+  
     this.setState({
       items: items
     });
   }
+  
 
   renderItem = (reservation, isFirst) => {
     const fontSize = isFirst ? 16 : 14;
