@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import { API_URL_BASE } from '../../../apiConfig';
 
 export default function HomeUserScreen() {
+
     const backgroundImage = require('../../../assets/fachada.jpg');
 
     const { user } = useContext(AuthContext);
@@ -19,56 +20,50 @@ export default function HomeUserScreen() {
 
     const handleCalendar = async () => {
         try {
-            const pendingEventsResponse = await fetch(API_URL_BASE + 'event/pending');
-            const pendingEvents = await pendingEventsResponse.json();
+            console.log(user);
+            const response = await fetch(API_URL_BASE + 'event/all');
+            if (!response.ok) {
+                throw new Error('Failed to fetch events');
+            }
+            const events = await response.json();
 
-            const approvedEventsResponse = await fetch(API_URL_BASE + 'event/approved');
-            const approvedEvents = await approvedEventsResponse.json();
+            eventsForUser = []
+
+            for (const subject of user.subjects) {
+                const subResponse = await fetch(`${API_URL_BASE}subject/id/${subject}`);
+                if (!subResponse.ok) {
+                    throw new Error(`Failed to fetch subject id: ${subject}`);
+                }
+                const sub = await subResponse.json();
+    
+                eventsForUser.push(...sub.events);
+            }
 
             let items = {}
             const now = (new Date()).toISOString().split('T')[0];
-
-            pendingEvents.forEach((event) => {
-                const eventTime = new Date(event.date).toLocaleTimeString('es-AR', {hour12: false, timeZone: 'America/Montevideo'});
-                const eventDate = new Date(event.date).toISOString().split('T')[0];
-                
-                if (!items[eventDate]) {
-                    items[eventDate] = [];
-                }
-                
-                if (!items[now]) {
-                    items[now] = [];
-                }
             
-                items[eventDate].push({
-                  name: event.name,
-                  hour: eventTime,
-                  eventType: event.eventType,
-                  approved: "Pendiente",
-                  height: 80
-                });
-            });
-
-            approvedEvents.forEach((event) => {
-                const eventTime = new Date(event.date).toLocaleTimeString('es-AR', {hour12: false, timeZone: 'America/Montevideo'});
-                const eventDate = new Date(event.date).toISOString().split('T')[0];
-          
-                if (!items[eventDate]) {
-                  items[eventDate] = [];
+            for (const event of events) {
+                if (eventsForUser.includes(event._id)) {
+                    const eventTime = new Date(event.date).toLocaleTimeString('es-AR', { hour12: false, timeZone: 'America/Montevideo' });
+                    const eventDate = new Date(event.date).toISOString().split('T')[0];
+    
+                    if (!items[eventDate]) {
+                        items[eventDate] = [];
+                    }
+    
+                    if (!items[now]) {
+                        items[now] = [];
+                    }
+    
+                    items[eventDate].push({
+                        name: event.name,
+                        hour: eventTime,
+                        eventType: event.eventType,
+                        approved: event.approved ? "Confirmado" : "Pendiente",
+                        height: 80
+                    });
                 }
-          
-                if (!items[now]) {
-                  items[now] = [];
-                }
-            
-                items[eventDate].push({
-                  name: event.name,
-                  hour: eventTime,
-                  eventType: event.eventType,
-                  approved: "Confirmado",
-                  height: 80
-                });
-            });
+            }
 
             navigation.navigate('Calendar', { items: items });
         } catch (error) {
