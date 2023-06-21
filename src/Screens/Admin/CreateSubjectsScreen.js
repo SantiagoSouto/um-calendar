@@ -33,8 +33,8 @@ export default function CreateSubjectsScreen() {
     const handleSubmit = async () => {
         const selectedCareers = careers.filter(career => career.isChecked);
 
-        if (selectedCareers.length == 0) {
-            selectedCareer = selectedCareers[0];
+        if (selectedCareers.length === 1) {
+            selectedCareer = selectedCareers[0].name;
         } else if (selectedCareers.some(career => career.name === 'Ingeniería telemática')) {
             selectedCareer = "Ingeniería TEL/INF";
         } else {

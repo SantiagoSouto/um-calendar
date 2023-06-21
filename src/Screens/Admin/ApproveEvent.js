@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { TamaguiProvider, YStack, H1,H5, useSafeRef, XStack } from 'tamagui'
+import { TamaguiProvider, YStack, H1, H2, H5, useSafeRef, XStack } from 'tamagui'
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../Session/AuthContext'
 import config from '../../../tamagui.config';
@@ -60,9 +60,9 @@ export default function ApproveEvent({ route }) {
                         <H5 color="$blue1" alignItems='center'>
                             Hola, {user.name}!
                         </H5>
-                        <H1 color="$blue1">
-                            Eventos
-                        </H1>
+                        <H2 color="$blue1">
+                            Eventos pendientes
+                        </H2>
                     </YStack>
                     <ScrollView>
                         <YStack f={1} space="$2">
