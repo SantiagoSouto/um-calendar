@@ -49,6 +49,7 @@ export default function AddEventScreen({route}) {
             });
             
             if (response.ok) {
+                Alert.alert("Evento actualizado correctamente");
                 navigation.goBack();
             } else {
                 throw new Error('Failed to update event');
@@ -87,9 +88,10 @@ export default function AddEventScreen({route}) {
             });
             
             if (response.ok) {
-            navigation.goBack();
+                Alert.alert("Evento creado correctamente");
+                navigation.goBack();
             } else {
-            throw new Error('Failed to add event');
+                throw new Error('Failed to add event');
             }
         } catch (error) {
             console.error('Error:', error);
