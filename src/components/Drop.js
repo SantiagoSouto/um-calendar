@@ -9,7 +9,7 @@ import {
 
 
 export function SelectItem(props) {
-  const { title, subjects, onSelect } = props;
+  const { title, subjects, eventType, onSelect } = props;
 
   const handleValueChange = (value) => {
     onSelect(value);
@@ -49,7 +49,7 @@ export function SelectItem(props) {
           <XStack>
             <Select.Group space="$0">
               <Select.Label>{title}</Select.Label>
-              {subjects.map((item, i) => {
+              {subjects ? subjects.map((item, i) => {
                 return (
                   <Select.Item index={i} key={item.name} value={item.name}>
                     <Select.ItemText>{item.name}</Select.ItemText>
@@ -58,7 +58,18 @@ export function SelectItem(props) {
                     </Select.ItemIndicator>
                   </Select.Item>
                 )
-              })}
+              }) :
+              eventType.map((event, i) => {
+                return (
+                  <Select.Item index={i} key={event} value={event}>
+                    <Select.ItemText>{event}</Select.ItemText>
+                    <Select.ItemIndicator marginLeft="auto">
+                      <Check size={16} />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                )
+              })
+              }
             </Select.Group>
             {props.native && (
               <YStack
