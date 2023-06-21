@@ -5,6 +5,7 @@ import styles from '../../styles';
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
+import { API_URL_BASE } from '../../apiConfig';
 
 
 export function CellEvents({ events }) {
@@ -14,8 +15,17 @@ export function CellEvents({ events }) {
     const split_date = raw_date.split('-');
     const date = split_date[2] + '/' + split_date[1] + '/' +  split_date[0];
 
-    const handleEditEvent = () => {
-        navigation.navigate('Sign Up'); //change to Edit Event Screen
+    const handleEditEvent = async (event) => {
+      try {
+        const response = await fetch(API_URL_BASE + 'subject/all');
+        const subjects = await response.json();
+
+        const eventTypes = ['parcial', 'entrega', 'obligatorio', 'recuperacion'];
+
+        navigation.navigate('Add event', { subjects: subjects, eventTypes: eventTypes, editEvent: event });
+      } catch (error) {
+          console.error('Error:', error);
+      }
     };
 
     const handleApproveEvent = () => {
@@ -39,7 +49,7 @@ export function CellEvents({ events }) {
                 <Text style={styles.boldCellEventText}>{event.name}</Text>
                 <Text style={[styles.boldCellEventText, { marginLeft: 10 }]}>{'-'}</Text>
                 <Text style={[styles.boldCellEventText, { marginLeft: 10 }]}>{event.time}</Text>
-                <TouchableOpacity style={styles.button} onPress={handleEditEvent}>
+                <TouchableOpacity style={styles.button} onPress={() => handleEditEvent(event)}>
                     <Ionicons name="pencil" size={14} color="white" />
                 </TouchableOpacity>
             </XStack>

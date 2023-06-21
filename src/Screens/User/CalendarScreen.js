@@ -10,46 +10,21 @@ export default class CalendarScreen extends Component {
   };
 
   componentDidMount() {
-    const { route } = this.props;
-    const { items } = route.params;
+    this.setState({items: this.props.route.params.items})
     const currentDate = startOfDay(new Date());
-    this.loadItems(currentDate);
     this.setState({ selectedDate: this.timeToString(currentDate) });
-  }
-
-  loadItems = () => {
-    const { items } = this.state;
-    const { route } = this.props;
-    const { items: passedItems } = route.params;
-  
-    passedItems.forEach((event) => {
-      const eventDate = event.date.split('T')[0];
-  
-      if (!items[eventDate]) {
-        items[eventDate] = [];
-      }
-  
-      items[eventDate].push({
-        name: event.name,
-        height: event.height
-      });
-    });
-  
-    this.setState({
-      items: items
-    });
   }
   
 
   renderItem = (reservation, isFirst) => {
     const fontSize = isFirst ? 16 : 14;
     const color = isFirst ? 'black' : '#43515c';
+    const message = `${reservation.eventType} a las ${reservation.hour.substring(0,5)} hrs.\n(${reservation.approved})`
 
     return (
       <TouchableOpacity
-        testID={testIDs.agenda.ITEM}
         style={[styles.item, { height: reservation.height }]}
-        onPress={() => Alert.alert(reservation.name)}
+        onPress={() => Alert.alert(reservation.name,message)}
       >
         <Text style={{ fontSize, color }}>{reservation.name}</Text>
       </TouchableOpacity>
@@ -73,16 +48,28 @@ export default class CalendarScreen extends Component {
     return date.toISOString().split('T')[0];
   }
 
+  onDayPress = (day) => {
+    const { items } = this.state;
+    if (!items[day.dateString]) {
+      items[day.dateString] = [];
+    }
+    this.setState({
+      items: items
+    });
+  }
+
   render() {
     return (
       <Agenda
         testID={testIDs.agenda.CONTAINER}
         items={this.state.items}
+        onDayPress={this.onDayPress}
         selected={this.state.selectedDate}
         renderItem={this.renderItem}
         renderEmptyDate={this.renderEmptyDate}
         rowHasChanged={this.rowHasChanged}
         showClosingKnob={true}
+        refreshing={true}
       />
     );
   }

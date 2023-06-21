@@ -14,7 +14,7 @@ import CalendarScreen from './src/Screens/User/CalendarScreen';
 import { AuthProvider } from './src/Session/AuthContext';
 import MySubjectsScreen from './src/Screens/User/MySubjectsScreen';
 import EnrollSubjectScreen from './src/Screens/User/EnrollSubject';
-import AddEventScreen from './src/Screens/User/AddEvent';
+import AddEventScreen from './src/Screens/User/AddEditEvent';
 import AllEventsScreen from './src/Screens/Admin/AllEvents';
 import ApproveEvent from './src/Screens/Admin/ApproveEvent';
 
